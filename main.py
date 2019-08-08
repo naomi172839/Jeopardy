@@ -34,6 +34,38 @@ def plotfreq(array, title):
     return fd1
 
 
+def wordfreq(word):
+    catFind = ansFind = queFind = comFind = ""
+    for i in catFreq.most_common():
+        if i[0] == word.lower():
+            catFind = "Category: " + str(i) + " Frequency: " + str(catFreq.most_common().index(i)+1)
+    for i in ansFreq.most_common():
+        if i[0] == word.lower():
+            ansFind = "Answer: " + str(i) + " Frequency: " + str(ansFreq.most_common().index(i)+1)
+    for i in queFreq.most_common():
+        if i[0] == word.lower():
+            queFind = "Question: " + str(i) + " Frequency: " + str(queFreq.most_common().index(i)+1)
+    for i in comFreq.most_common():
+        if i[0] == word.lower():
+            comFind = "Comments: " + str(i) + " Frequency: " + str(comFreq.most_common().index(i)+1)
+    if catFind != "":
+        print(catFind)
+    else:
+        print(word + " Not found in Category!")
+    if ansFind != "":
+        print(ansFind)
+    else:
+        print(word + " Not found in Answer!")
+    if queFind != "":
+        print(queFind)
+    else:
+        print(word + " Not found in Question!")
+    if comFind != "":
+        print(comFind)
+    else:
+        print(word + " Not found in Comments!")
+
+
 def saveprocessed(saved):
     pickle.dump(saved, open("jep.s", "wb"))
 
