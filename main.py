@@ -66,7 +66,8 @@ else:
         ansTemp.append(ans)
         queTemp.append(que)
         data = [catTemp, comTemp, ansTemp, queTemp]
-        saveprocessed(data)
+
+    saveprocessed(data)
 
 plotfreq(data[0], "Categories")
 plotfreq(data[2], "Answers")
