@@ -2,3 +2,5 @@ matplotlib
 nltk
 pandas
 numpy
+pickle
+os
