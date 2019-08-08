@@ -20,6 +20,8 @@ def plotfreq(array, title):
     strver = str(array)
     strver = strver.replace("'", "")
     strver = strver.replace(",", "")
+    strver = strver.replace("[", "")
+    strver = strver.replace("]", "")
     strver = ' '.join(word for word in strver.split() if len(word) > 2)
     tokens = nltk.tokenize.word_tokenize(strver)
     fd1 = nltk.FreqDist(tokens)
@@ -29,6 +31,7 @@ def plotfreq(array, title):
     plt.ylabel("Use Frequency")
     fd1.plot(20, cumulative=False)
     plt.show()
+    return fd1
 
 
 def saveprocessed(saved):
@@ -69,7 +72,7 @@ else:
 
     saveprocessed(data)
 
-plotfreq(data[0], "Categories")
-plotfreq(data[2], "Answers")
-plotfreq(data[3], "Questions")
-plotfreq(data[1], "Comments")
+catFreq = plotfreq(data[0], "Categories")
+ansFreq = plotfreq(data[2], "Answers")
+queFreq = plotfreq(data[3], "Questions")
+comFreq = plotfreq(data[1], "Comments")
