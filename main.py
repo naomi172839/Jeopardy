@@ -5,6 +5,8 @@ from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 import pickle
 import os
+from sklearn.preprocessing import OneHotEncoder
+from numpy import array
 
 
 def preprocess(word):
@@ -25,7 +27,7 @@ def plotfreq(array, title):
     strver = ' '.join(word for word in strver.split() if len(word) > 2)
     tokens = nltk.tokenize.word_tokenize(strver)
     fd1 = nltk.FreqDist(tokens)
-    plt.figure(figsize=(25, 20))
+    plt.figure(figsize=(20, 15))
     plt.title(title)
     plt.xlabel("Word")
     plt.ylabel("Use Frequency")
@@ -35,29 +37,29 @@ def plotfreq(array, title):
 
 
 def wordfreq(word):
-    catFind = ansFind = queFind = comFind = ""
+    cat_find = ans_find = que_find = comFind = ""
     for i in catFreq.most_common():
         if i[0] == word.lower():
-            catFind = "Category: " + str(i) + " Frequency: " + str(catFreq.most_common().index(i)+1)
+            cat_find = "Category: " + str(i) + " Frequency: " + str(catFreq.most_common().index(i) + 1)
     for i in ansFreq.most_common():
         if i[0] == word.lower():
-            ansFind = "Answer: " + str(i) + " Frequency: " + str(ansFreq.most_common().index(i)+1)
+            ans_find = "Answer: " + str(i) + " Frequency: " + str(ansFreq.most_common().index(i) + 1)
     for i in queFreq.most_common():
         if i[0] == word.lower():
-            queFind = "Question: " + str(i) + " Frequency: " + str(queFreq.most_common().index(i)+1)
+            que_find = "Question: " + str(i) + " Frequency: " + str(queFreq.most_common().index(i) + 1)
     for i in comFreq.most_common():
         if i[0] == word.lower():
-            comFind = "Comments: " + str(i) + " Frequency: " + str(comFreq.most_common().index(i)+1)
-    if catFind != "":
-        print(catFind)
+            comFind = "Comments: " + str(i) + " Frequency: " + str(comFreq.most_common().index(i) + 1)
+    if cat_find != "":
+        print(cat_find)
     else:
         print(word + " Not found in Category!")
-    if ansFind != "":
-        print(ansFind)
+    if ans_find != "":
+        print(ans_find)
     else:
         print(word + " Not found in Answer!")
-    if queFind != "":
-        print(queFind)
+    if que_find != "":
+        print(que_find)
     else:
         print(word + " Not found in Question!")
     if comFind != "":
@@ -72,6 +74,15 @@ def saveprocessed(saved):
 
 def loadprocessed():
     return pickle.load(open("jep.s", "rb"))
+
+
+def onehot(strlist):
+    token = nltk.tokenize.word_tokenize(strlist)
+    token = array(token)
+    token = token.reshape(1, -1)
+    oe = OneHotEncoder()
+    onehot_encoded = oe.fit_transform(token)
+    return onehot_encoded
 
 
 data = []
